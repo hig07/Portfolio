@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+th:replace="~{layout/layout1 :: layout(~{::head}, ~{::main})}">
+<head>
+	<script type="text/javascript">
+		$(function(){
+			getDaily();
+		});
+		function getDaily(){
+			$.get("/common/movie-list",function(result){
+				$("#movie-disp").html(result);
+			});
+		}
+	</script>
+	<style type="text/css">
+		#movie-disp{padding: 40px 0;}
+		#movie-disp>ol>li{padding: .8em 0;}
+		#movie-disp>ol>li:first-child{
+		border-top: 2px solid #a9a9a9;border-bottom: 2px solid #a9a9a9; background-color: black;color: white;}
+		#movie-disp>ol>li:not(:first-child){border-bottom: 1px solid #a9a9a9;}
+		#movie-disp>ol>li>ul>li{width: 80px; padding-left: 20px; text-align: center;}/* 1,2,5 */
+		#movie-disp>ol>li>ul>li:nth-child(2) {width: 120px;}
+		#movie-disp>ol>li>ul>li:nth-child(3) {width: 600px;}
+		#movie-disp>ol>li>ul>li:nth-child(4) {width: 200px;}
+		#movie-disp>ol>li>ul>li:nth-child(5) {width: 180px;}
+	</style>
+</head>
+<main>
+	<h1>메인컨텐츠</h1>
+	<div class="wrap">
+		<section>
+			<h1></h1>
+			<div class="wrap view-size">
+				<p>영화상영정보 페이지 입니다.</p>
+				<div>[[${#temporals.format(basic, 'yyyy년 MM월 dd일 기준')}]]</div>				
+			</div>
+		</section>
+		<section id="content">
+			<h1>메인컨텐츠</h1>
+			<div class="wrap view-size">
+				<div id="movie-disp">
+				</div>
+			</div>
+		</section>
+	</div>
+</main>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org" 
+xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+th:fragment="layout(head,main)" >
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>백화::송이향버섯</title>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+	<!-- default header name is X-CSRF-TOKEN -->
+	<meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="icon" href="/images/icon/myicon.ico">
+    <!-- 공통적용할 css -->
+    <link rel="stylesheet" href="/css/common/reset.css">
+    <link rel="stylesheet" href="/css/common/common.css">
+    <link rel="stylesheet" href="/css/common/layout-admin.css">
+    <!-- summernote css/js -->
+    <th:block th:replace="${head}">page에서 설정한 head정보가 삽입되요</th:block>
+    
+</head>
+<body class="flex">
+	<header>
+		<h1>메뉴</h1>
+		<div class="wrap">
+			<div id="top">
+				<a href="/admin/home">관리자 홈</a>
+			</div>
+			<dl>
+				<dt><a href="#">비주얼 관리</a></dt>
+				<dd><a href="/admin/visuals">리스트</a></dd>
+				<dd><a href="/admin/visuals/write">등록하기</a></dd>
+			</dl>
+			<dl>
+				<dt><a href="#">상품관리</a></dt>
+				<dd><a href="/admin/goods">리스트</a></dd>
+				<dd><a href="/admin/goods/write">등록하기</a></dd>
+			</dl>
+			<dl>
+				<dt><a href="#">관리3</a></dt>
+				<dd><a href="#">리스트</a></dd>
+				<dd><a href="#">등록하기</a></dd>
+			</dl>
+			<dl>
+				<dt><a href="#">관리4</a></dt>
+				<dd><a href="#">리스트</a></dd>
+				<dd><a href="#">등록하기</a></dd>
+			</dl>
+			<dl>
+				<dt><a href="#">관리5</a></dt>
+				<dd><a href="#">리스트</a></dd>
+				<dd><a href="#">등록하기</a></dd>
+			</dl>
+			<div id="bottom">
+				<a href="/">홈페이지 이동</a>
+			</div>
+		</div>
+	</header>
+    <main th:replace="${main}">
+    	메인섹션이 삽입되는 영역입니다.
+    </main>
+</body>
+</html>

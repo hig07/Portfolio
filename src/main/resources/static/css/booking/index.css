@@ -1,0 +1,95 @@
+@charset "UTF-8";
+
+main{margin-bottom: 80px; padding-top: 14px;}
+#main-div{position: relative;}
+/***************************** quick-booking *********************************/
+#quick-booking{position: relative; z-index: 10; width: 1004px;
+padding: 20px 20px 30px; background: #fff; box-sizing: border-box; border-radius: 8px;
+box-shadow: 0 1px 6px rgb(0 0 0 / 12%); margin: 0 auto;
+}
+#quick-booking> .booking-ways{height: 27; margin-bottom: 23px;}
+#quick-booking> .booking-ways button{border: none; background-color: #fff;
+color: #aaa; padding-bottom: 4px; border-bottom: 2px; margin-right: 20px; 
+font-size: 16px; font-weight: 700; cursor: pointer;}
+
+#quick-booking> #booking-place-round{display: none;}
+#quick-booking> .booking-place{height: 50px;}
+#quick-booking> .booking-place .booking-space{display: inline-block; vertical-align: middle;}
+#quick-booking> .booking-place div button{background-color: #fff; border: none;}
+#quick-booking> .booking-place div:not(:last-child) button{
+	position: relative; order: 1; width: 290px; height: 44px; cursor: pointer;
+    border-bottom: 1px solid #ddd; box-sizing: border-box; font-weight: 400;
+}
+#quick-booking> .booking-place div:last-child button{
+	position: relative; order: 2; width: 290px; height: 44px;
+    border-bottom: 1px solid #ddd; box-sizing: border-box; font-weight: 400;
+    cursor: pointer;
+}
+#quick-booking> .booking-place button .depart-span{
+	color: #aaa; display: block; font-weight: 800;
+	font-size: 24px; line-height: 34px; text-align: left;
+}
+#quick-booking> .booking-place button .arriv-span{
+	color: #aaa; display: block; font-weight: 800;
+	font-size: 24px; line-height: 34px; text-align: right;
+}
+#quick-booking> .booking-place .arrow-img{width: 20px; height: 20px; margin: 0 5px;}
+
+#quick-booking> .booking-place .booking-date{margin-left: 21px;
+display: inline-block; vertical-align: middle;}
+#quick-booking> .booking-place .booking-date p{color: #aaa;}
+#quick-booking> .booking-place .booking-date input{width: 85px; margin-right: 5px;}
+
+#search-btn{width: 156px; height: 45px; border: none; background-color: #ff5000; 
+color: #fff; margin-top: 15px; float: right; margin-right: 30px;}
+/**************************** event-box *********************************/
+#event-box{border: 1px solid #333; margin-top: -30px;
+height: 480px;  overflow: hidden; position: relative;
+}
+#event-box>.event-bckgrd{
+	background-color: rgba(255, 80, 0, 0.7); position: absolute; width: 50%; height: 480px; 
+	z-index: 3;
+}
+#event-box>.event-img{
+	width: 100%; z-index: 2; position: absolute; margin: 0; padding: 0; border: none; 
+	left: 40%;
+}
+#event-box> .event-info{
+	position: absolute; top: 43%; z-index: 4; text-decoration: none; color: #fff; 
+	left: 40%; transform: translateX(-50%); font-size: 16px;
+}
+#event-box> .event-info span{display: block;}
+
+/***************************** pop menu *********************************/
+
+#main-div> .depAirportLayer,
+#main-div> .arrAirportLayer{width: 970px; height: 330px; z-index: 11; top: 125px; 
+position: absolute; display: none; background: #fff; box-sizing: border-box; 
+border-radius: 8px; box-shadow: 0 1px 6px rgb(0 0 0 / 12%);}
+
+.Layer-div1{height: 75px; border-bottom: 1px solid #aaa; padding: 9px 50px 9px 25px;}
+
+.img-button1{background: url("/images/book/magnifying-glass-solid.svg") no-repeat;
+border: none; width: 26px; height: 26px;cursor: pointer; margin-right: 15px;}
+
+.img-button2{background: url("/images/book/x-solid.svg") no-repeat;
+border: none; width: 27px; height: 27px;cursor: pointer;}
+
+.search-input{width: 810px; height: 26px; border: none;}
+input::placeholder{color: #aaa; font-size: 18px; font-weight: 700;}
+
+.Layer-div2{
+	display: flex; height: 255px;
+}
+.Layer-div2> .categorys{
+	display: inline-block; width: 30%; height: 100%; 
+	background-color: #f8f8f8;
+}
+.categorys> div{
+	width: 100%; height: 25%; border-bottom: 1px solid #ddd; color: #aaa;
+	border-right: 1px solid #ddd;
+}
+.Layer-div2> .countries{
+	display: inline-block; width: 70%; height: 100%; 
+	background-color: #fff;
+}

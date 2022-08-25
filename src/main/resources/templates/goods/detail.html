@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+th:replace="~{layout/layout1 :: layout(~{::head}, ~{::main})}">
+<head>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	
+	<!-- include summernote css/js -->
+	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+	<script src="/js/my-summernote.js"></script>
+	<script src="/js/fileupload.js"></script>
+</head>
+<main>
+	<h1>상품 디테일페이지</h1>
+	<div class="wrap">
+		<section id="goods-reg">
+			<h1>상품리스트</h1>
+			<div class="wrap view-size">
+				<p>상품 리스트</p>
+				<ul>
+					<li>
+						<th:block th:each="f : ${detail.files}">
+							<img  th:if="${f.isDefImg}" alt="이미지" height="500px" th:src="${f.url+f.orgName}">
+						</th:block>
+						<div>
+							<th:block th:each="f : ${detail.files}">
+								<img  th:unless="${f.isDefImg}" alt="추가이미지" height="100px" th:src="${f.url+f.orgName}">
+							</th:block>
+						</div>
+					</li>
+					<li id="goodsName">
+						[[${detail.name}]]</li>
+					<li >[[${detail.price}]]</li>
+					<li>[[${detail.sale}]]</li>
+					<li id="goodsPrice">[[${detail.price-detail.sale}]]</li>
+					<li>[[${detail.stock}]]</li>
+					<li>구매개수: <input type="number" id="ea" value="1"> </li>
+					<li>[(${detail.content})]</li>
+				</ul>
+				<div>
+					<span sec:authorize="isAuthenticated()">
+						<input type="hidden" id="buyerEmail" th:value="${#authentication.principal.email}">
+						<input type="hidden" id="buyerName" th:value="${#authentication.principal.name}">
+					</span>
+					<input type="hidden" id="gno" name="gno" th:value="${detail.gno}">
+					<input type="hidden" th:name="${_csrf.parameterName}"  th:value="${_csrf.token}" >
+					<input type="hidden" id="isauth" th:value="${#authorization.expression('isAuthenticated()')}">
+					
+					<button type="button" id="btn-cart">장바구니</button>
+					<button id="btn-payment">구매하기</button>
+					
+					<script type="text/javascript">
+						$(function(){
+							$("#btn-cart").click(function(){
+								if($("#isauth").val()=="false"){
+									if(confirm("로그인후 이용가능합니다. 로그인페이지 이동!")){
+										location.href="/signin";
+									}
+									return;
+								}
+								//장바구니로 저장
+								var token = $("meta[name='_csrf']").attr("content");
+		    	    			var header = $("meta[name='_csrf_header']").attr("content");
+		    	    			$.ajax({
+		    	    				beforeSend: function(xhr){xhr.setRequestHeader(header, token);},
+									url:"/goods/carts",
+									type:"post",
+									data:{
+										gno:$("#gno").val(),
+										ea:$("#ea").val()
+										},
+									success:function(result){
+										if(result=="save"){
+											if(confirm("장바구니에 저장하였습니다.\n이동하시겠습니까?")){
+												location.href="/member/carts"
+											}
+										}else if(result=="update"){
+											if(confirm("기존 장바구니 정보에 추가하였습니다.\n이동하시겠습니까?")){
+												location.href="/member/carts"
+											}
+										}
+									}
+								});
+							});
+						});
+					</script>
+				</div>
+			</div>
+		</section>
+	</div>
+</main>
+</html>

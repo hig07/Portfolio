@@ -1,0 +1,8 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" >
+<ul th:each="dto : ${list}" class="flex">
+	<li>
+		<button>[[${dto.email}]]</button>	
+	</li>
+</ul>
+</html>

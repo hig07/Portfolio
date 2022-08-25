@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org" 
+xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+th:fragment="layout(head, main)" >
+<head>
+    <title>그린항공</title>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+	<!-- default header name is X-CSRF-TOKEN -->
+	<meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- 공통적용할 css -->
+    <link rel="stylesheet" href="/css/booking/reset.css">
+    <link rel="stylesheet" href="/css/booking/common.css">
+    <link rel="stylesheet" href="/css/booking/header.css">
+    <link rel="stylesheet" href="/css/booking/footer.css">
+    <script src="/js/myStyle.js"></script>
+    <!-- summernote css/js -->
+    <th:block th:replace="${head}">page에서 설정한 head정보가 삽입되요</th:block>
+</head>
+<body>
+    <header>
+    	<h1>헤더</h1>
+    	<div id="top-top-header" class="wrap flex around">
+    		<nav id="top-menu">
+    			<h1>메뉴</h1>
+    			<div class="wrap">
+    				<ul class="flex around">
+    					<li><a href="/customer">고객센터</a></li>
+    					<li sec:authorize="isAnonymous()"><a href="/signin">로그인</a></li>
+    					<li sec:authorize="isAuthenticated()">
+    						<span sec:authentication="name"></span>
+    						<!-- <span sec:authentication="principal.name"></span> -->
+    						<button type="button" id="btn-logout">로그아웃</button>
+    					</li>
+    					<li><a href="/signup">회원가입</a></li>
+    				</ul>
+    			</div>
+    		</nav>
+    		<script type="text/javascript">
+    			$(function () {
+    				$("#btn-logout").click(function(){
+    					var token = $("meta[name='_csrf']").attr("content");
+    	    			var header = $("meta[name='_csrf_header']").attr("content");
+    	    			
+    	    			$.ajax({
+    	    				beforeSend: function(xhr){xhr.setRequestHeader(header, token);},
+    	    				url:"/logout",
+    	    				type:"post",
+    	    				success:function(){
+    	    					location.href="/";
+    	    				},error:function(){
+    	    					alert("실패");
+    	    				}
+    	    			});
+    				});
+    			});
+    		</script>
+    	</div>
+    	<div id="top-bottom-header" class="wrap flex around">
+    		<nav id="top-menu">
+    			<h1>메뉴</h1>
+    			<div class="wrap">
+    				<a href="/">GreenAir</a>
+    			</div>
+    			<div class="wrap">
+    				<ul class="flex around">
+    					<li><a href="#">항공권 예매</a></li>
+    					<li><a href="/member/carts">장바구니</a></li>
+    				</ul>
+    			</div>
+    		</nav>
+    	</div>
+    </header>
+    <main th:replace="${main}">
+    	메인섹션이 삽입되는 영역입니다.
+    </main>
+    <footer>
+		<h1>하단영역</h1>
+		<div class="wrap ">
+			<!-- //////////////////////////////////////////////// -->
+			<nav id="fnb">
+				<h1>하단메뉴</h1>
+				<div class="wrap view-size flex column center">
+					<ul class="flex around">
+						<li><a href="#">코딩 소개</a></li>
+						<li><a href="#">매장안내</a></li>
+						<li><a href="#">약관 및 정책</a></li>
+						<li class="terms"><a href="#">개인정보 취급방침</a></li>
+						<li><a href="#">고객센터</a></li>
+						<li><a href="#">입점문의</a></li>
+						<li><a href="#">인재채용</a></li>
+					</ul>
+				</div>
+			</nav>
+			<!-- //////////////////////////////////////////////// -->
+			<!-- //////////////////////////////////////////////// -->
+			<section id="cus">
+				<!-- 엔티티코드 & : &amp; 공백:&nbsp;--> 
+				<h1>고객센터&nbsp;&amp;&nbsp;SNS</h1>
+				<div class="wrap view-size flex between">
+					<section id="center">
+						<h1>고객센터</h1>
+						<div class="wrap flex">
+							<div class="tel">
+								<p>고객센터</p>
+								<a href="tel:01030390089">3039-0089</a>
+							</div>
+							<dl class="work flex">
+								<dt>평일 :&nbsp;</dt>
+								<dd>10:00 ~ 16:00</dd>
+								<dt>토,일요일 :&nbsp;</dt>
+								<dd>휴일</dd>
+								<dt>점심시간 :&nbsp;</dt>
+								<dd>12:00 ~ 13:00</dd>
+							</dl>
+						</div>
+					</section>
+					<section id="sns" class="flex column end">
+						<h1>SNS</h1>
+						<div class="wrap">
+							<ul class="flex">
+								<li><a href="#"><img alt="인스타" src="<%=request.getContextPath() %>/images/index/w_footer_sns01.png"></a></li>
+								<li><a href="#"><img alt="facebook" src="<%=request.getContextPath() %>/images/index/w_footer_sns02.png"></a></li>
+								<li><a href="#"><img alt="blog" src="<%=request.getContextPath() %>/images/index/w_footer_sns03.png"></a></li>
+								<li><a href="#"><img alt="유튜브" src="<%=request.getContextPath() %>/images/index/w_footer_sns04.png"></a></li>
+							</ul>
+						</div>
+					</section>
+				</div>
+			</section>
+			<!-- //////////////////////////////////////////////// -->
+			<!-- //////////////////////////////////////////////// -->
+			<section id="com">
+				<h1>회사정보</h1>
+				<div class="wrap view-size">
+					<div class="com-info">
+						<dl class="flex">
+							<dt>노원사무소</dt>
+							<dd>
+								<address>서울특별시 노원구 상계로3길 21 3층, 6층</address>
+							</dd>
+						</dl>
+						<dl class="flex">
+							<dt>본사</dt>
+							<dd>
+								<address>서울특별시 노원구 상계로3길 21 3층, 6층</address>
+							</dd>
+						</dl>
+						<dl class="flex">
+							<dt>상호</dt>
+							<dd>주식회사 코딩</dd>
+							<dt>대표</dt>
+							<dd>더조은</dd>
+							<dt>사업자등록번호</dt>
+							<dd>123-88-98765</dd>
+							<dt>통신판매업신고번호</dt>
+							<dd>제2022-노원-9999</dd>
+						</dl>
+					</div>
+					<div class="copy">
+						Copyright &copy; Coding Corp. All Rights Reserved.
+					</div>
+				</div>
+			</section>
+			<!-- //////////////////////////////////////////////// -->
+		</div>
+	</footer>
+</body>
+</html>

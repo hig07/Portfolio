@@ -1,0 +1,25 @@
+@charset "UTF-8";
+/********************header**************************/
+header{position: relative;}
+#top-Logo{height: 112px;}
+/********************top-header*********************/
+#top-top-header{height: 36px; border-bottom: 1px solid #f2f2f2; 
+padding-top: 9px; font-size: 11px;}
+#top-top-header> nav div ul{width: 500px;}
+#top-top-header> nav div ul li a{color: #666; text-decoration: none;}
+#top-top-header> nav div ul li span{color: #ff5000; margin-right: 5px;}
+#top-top-header> nav div ul li button{
+	background-color: #fff; border: none; font-size: 11px;
+}
+
+/********************bottom-header********************/
+#top-bottom-header{height: 76px; font-size: 16px;}
+#top-bottom-header> nav div{display: inline-block;}
+#top-bottom-header> nav div:nth-child(1){padding-top: 17px;}
+#top-bottom-header> nav div a{color: #ff5000; font-size: 28px; font-weight: 700;
+text-decoration: none;}
+
+#top-bottom-header> nav div:nth-child(2){padding-top: 25px;}
+#top-bottom-header> nav div ul{width: 750px; margin-left: 40px;}
+#top-bottom-header> nav div ul li a{color: black; font-size: 18px; font-weight: 600;
+text-decoration: none; padding-left: 200px;}

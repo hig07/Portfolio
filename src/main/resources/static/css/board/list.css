@@ -1,0 +1,10 @@
+@charset "UTF-8";
+
+#content div div a{
+	color: #ff5000;
+	text-decoration: none;
+}
+#todetail li a{
+	color: #ff5000;
+	text-decoration: none;
+}

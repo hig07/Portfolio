@@ -1,0 +1,80 @@
+@charset "UTF-8";
+
+footer>.wrap{
+	padding: 40px 0 80px;
+}
+
+#fnb{
+	border-top: 1px solid #a9a9a9;
+	border-bottom: 1px solid #a9a9a9;
+	
+}
+#fnb>.wrap{
+	height: 50px;
+}
+
+#fnb>.wrap ul li{
+	flex: 1;
+	text-align: center;
+}
+#fnb>.wrap ul li a{text-decoration: none;}
+/* 마지막 li태그는 제외하고 적용 */
+#fnb>.wrap ul li:not(:last-child){
+	border-right: 1px solid #d9d9d9;
+}
+#fnb>.wrap ul li:nth-child(3){
+	flex: 1.2;
+}
+#fnb>.wrap ul li.terms{
+	flex: 1.5;
+}
+#fnb>.wrap ul li a{
+	color: #333;
+}
+#fnb>.wrap ul li.terms a{
+	color: #99cc66;
+}
+
+.warp> #cus{width: 80%}
+
+#center{
+	margin-top: 30px;
+}
+#center>.wrap .tel{
+	font-weight: 900;
+}
+#center>.wrap .tel p{
+	font-size: 22px;
+}
+#center>.wrap .tel a{
+	font-size: 35px;
+}
+#center>.wrap dl.work{
+	position: relative;	
+	top: 50px;
+	left: 10px;
+	height: 22px;
+	color: #333;
+}
+#center>.wrap dl.work dt{
+	color: #888;
+	margin-left: 10px;
+}
+#com{
+	margin-top: 30px;
+}
+#com>.wrap{
+	font-size: 14px;
+	color: #888;
+}
+#com>.wrap dl:not(:last-child) dt::after{
+	content: ":";
+	margin: 0 10px;
+}
+#com>.wrap dl:last-child dd{
+	color: #333;
+	margin: 0 1em 0 0.5em;
+}
+#com>.wrap .copy{
+	margin-top: 30px;
+}

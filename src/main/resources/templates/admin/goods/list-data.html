@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<ul th:each="dto : ${list}" class="flex" >
+	<li >
+		<a th:href="|/common/goods/${dto.gno}|"><img  alt="이미지" height="100px" 
+		th:src="${dto.defImgUrl}">
+		</a>
+	</li>
+	<li>[[${dto.name}]]</li>
+	<li>[[${dto.price}]]</li>
+	<li>[[${dto.sale}]]</li>
+	<li>[[${dto.stock}]]</li>
+</ul>
+</html>

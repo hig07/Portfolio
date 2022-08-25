@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+th:replace="~{layout/layout1 :: layout(~{::head}, ~{::main})}">
+<head>
+    <style type="text/css">
+	    #cart-list>.wrap ul li{
+	    	width: 50px;
+	    }
+	    #cart-list>.wrap ul li:nth-child(2){
+	    	width: 500px;
+	    }
+	    #cart-list>.wrap ul li:nth-child(3),
+	    #cart-list>.wrap ul li:nth-child(4),
+	    #cart-list>.wrap ul li:nth-child(6){
+	    	width: 150px;
+	    }
+	     #cart-list>.wrap input{
+	     	width: 40px;
+	     }
+    </style>
+</head>
+<main>
+	<h1>메인컨텐츠</h1>
+	<div class="wrap">
+		<section id="content">
+			<h1>메인컨텐츠</h1>
+			<div class="wrap view-size">
+				<section id="page-title">
+					<h1>pageTitle</h1>
+					<div class="wrap">
+						<p>내 장바구니</p>				
+					</div>
+				</section>
+				<section id="cart-list">
+					<h1>상품리스트</h1>
+					<div class="wrap">
+						<ul class="flex" >
+							<li>
+								순서
+							</li>
+							<li>상품명</li>
+							<li>판매가</li>
+							<li>할인</li>
+							<li>
+								수량
+							</li>
+							<li>결제금액</li>
+						</ul>
+						<ul class="flex" th:each="dto:${list}">
+							<li>
+								[[${dto.no}]]
+								<input type="hidden" class="no" th:value="${dto.no}">
+								<input type="checkbox" class="select-item" checked="checked">
+								<input type="hidden" class="price" th:value="${dto.goods.price}">
+								<input type="hidden" class="sale" th:value="${dto.goods.sale}">
+								<input type="hidden" class="gno" th:value="${dto.goods.gno}">
+							</li>
+							<li>[[${dto.goods.name}]]</li>
+							<li>[[${#numbers.formatInteger(dto.goods.price, 1, 'COMMA')}]]</li>
+							<li>[[${#numbers.formatInteger(dto.goods.sale, 1, 'COMMA')}]]</li>
+							<li>
+								<input type="number" class="ea" min="1" th:value="${dto.ea}" size="2" />
+								<input type="hidden" class="eaprice" th:value="${dto.goods.price-dto.goods.sale}">
+								<button>주문하기</button>
+							</li>
+							<li class="pay" th:text="${#numbers.formatInteger((dto.goods.price-dto.goods.sale) * dto.ea, 1, 'COMMA')}"></li>
+						</ul>
+						<script type="text/javascript">
+							$(function(){
+								calc();
+								$("#btn-order").click(btnOrderClicked);
+							});
+							function btnOrderClicked(){
+								var selectItems=$(".select-item:checked");
+								var formData = new FormData();
+								for(var i=0; i<selectItems.length;i++){
+									var OrderDto={
+										gno:$(selectItems[i]).parents("ul").find(".gno").val(),
+										ea:$(selectItems[i]).parents("ul").find(".ea").val()
+									}
+									formData.append("orderDto",OrderDto);
+								}
+								var token = $("meta[name='_csrf']").attr("content");
+		    	    			var header = $("meta[name='_csrf_header']").attr("content");
+		    	    			$.ajax({
+		    	    				beforeSend: function(xhr){xhr.setRequestHeader(header, token);},
+									url:"/member/order",
+									type:"post",
+									contentType:false,
+									processData:false,
+									data: formData,
+									success:function(){}
+		    	    			});
+							}
+							$(".ea").change(function(){
+								//상품번호
+								var target=$(this);
+								var eaprice=$(this).parents("ul").find(".eaprice").val();
+								var gno=$(this).parents("ul").find(".gno").val();
+								var ea=$(this).parents("ul").find(".ea").val();
+								//상품개수
+								var token = $("meta[name='_csrf']").attr("content");
+		    	    			var header = $("meta[name='_csrf_header']").attr("content");
+		    	    			$.ajax({
+		    	    				beforeSend: function(xhr){xhr.setRequestHeader(header, token);},
+									url:"/member/carts/"+gno,
+									type:"PUT",//update put매핑
+									data:{ea:ea},
+									success:function(){
+										var pay=eaprice * ea;
+										target.parents("ul").find(".pay").text(comma(pay));
+										calc();
+									}
+		    	    			});
+							});
+							//3자리마다 , 적용
+							function comma(num){
+								return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g,',');
+							}
+							
+							$(".select-item").change(function(){
+								calc();
+							});
+							//체크박스 체크된 아이템을 계산
+							function calc(){
+								var selectItems=$(".select-item:checked");
+								var priceTot=0;
+								var saleTot=0;
+								for(i = 0; i < selectItems.length; i++){
+									priceTot += parseInt($(selectItems[i]).siblings(".price").val()) * parseInt($(selectItems[i]).parents("ul").find(".ea").val());
+									saleTot += parseInt($(selectItems[i]).siblings(".sale").val()) * parseInt($(selectItems[i]).parents("ul").find(".ea").val());
+								}
+								$("#priceTot").text(comma(priceTot));
+								$("#saleTot").text(comma(saleTot));
+								$("#pay").text(comma(priceTot-saleTot));
+							}
+						</script>
+						<div class="flex">
+							<div class="flex">
+								<div>
+									<p>선택상품금액</p>
+									<span id="priceTot">0</span>원
+								</div>
+								<span>+</span>
+								<div>
+									<p>총배송비</p>
+									<span>0</span>원
+								</div>
+								<span>-</span>
+								<div>
+									<p>할인예상금액</p>
+									<span id="saleTot">0</span>원
+								</div>
+							</div>
+							<div class="flex">
+								<span>주문금액</span ><span id="pay">0</span>원<button type="button" id="btn-order">주문하기</button>
+							</div>
+						</div>
+					</div>
+				</section>
+			</div>
+		</section>
+	</div>
+</main>
+</html>

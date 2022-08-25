@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+th:replace="~{layout/layout1 :: layout(~{::head}, ~{::main})}">
+<head>
+	<style type="text/css">
+		table{border-collapse: collapse;}
+		#content>.wrap>table tr{border-bottom: 1px solid #a9a9a9;}
+		#content>.wrap>table tr td{padding: 1em;}
+		#content>.wrap>table tr td:nth-of-type(1){width: 100px; text-align: center;}
+		#content>.wrap>table tr td:nth-of-type(2){width: 440px; text-align: center;}
+		#content>.wrap>table tr td:nth-of-type(3){width: 320px;}
+		#content>.wrap>table tr td:nth-of-type(4){width: 320px; text-align: right;}
+		#content>.wrap>table tr td:nth-of-type(5){text-align: center;}
+		#content>.wrap>table tr td:nth-of-type(7){text-align: right;}
+		#content>.wrap>table tr td:nth-of-type(8){width: 200px; text-align: center;}
+	</style>
+</head>	
+<main>
+	<h1>메인컨텐츠</h1>
+	<div class="wrap view-size">
+		<!-- 메인영역에 들어가는 태그를 작성할 예정입니다. -->
+		<section>
+			<h1>페이지타이틀</h1>
+			<div class="wrap">
+				<p>버스경로</p>
+				<div><input type="text" placeholder="버스번호"><button>검색</button></div>
+			</div>
+		</section>
+		<section id="content">
+			<h1>컨텐츠영역</h1>
+			<div class="wrap">
+				<table>
+					<thead >
+						<tr>
+							<td>노선ID</td>
+							<td>노선명</td>
+							<td>기점</td>
+							<td>종점</td>
+							<td>배차간격</td>
+							<td>금일첫차시간</td>
+							<td>금일막차시간</td>
+							<td>운송사명</td>
+						</tr>
+					</thead>
+					<tbody >
+						<tr th:each="dto:${list}">
+							<td>[[${dto.busRouteId}]]</td>
+							<td>[[${dto.busRouteNm}]]</td>
+							<td>[[${dto.stStationNm}]]</td>
+							<td>[[${dto.edStationNm}]]</td>
+							<td>[[${dto.firstBusTm}]]</td>
+							<td>[[${dto.lastBusTm}]]</td>
+							<td>[[${dto.lastBusTm}]]</td>
+							<td>[[${dto.corpNm}]]</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</section>
+	</div>
+</main>
+</html>

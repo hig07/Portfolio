@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<select name="caNo" >
+	<option >2차카테고리</option>
+	<th:block th:each="op:${option}">
+	<option th:value="${op.caNo}">[[${op.name}]]</option>
+	</th:block>
+</select>
+<button type="button" class="btn-addCate" onclick="btnAddCateClicked(this)">추가</button>
+<button type="button" class="btn-removeCate" style="display: none;" onclick="btnRemoveCateClicked()">삭제</button>
+</html>

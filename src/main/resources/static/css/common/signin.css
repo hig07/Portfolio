@@ -1,0 +1,9 @@
+@charset "UTF-8";
+
+.error{
+	background-color: red;
+	padding: 1em 0;
+	text-align: center;
+	color: white;
+	font-weight: bold;
+}
